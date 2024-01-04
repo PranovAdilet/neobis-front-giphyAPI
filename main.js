@@ -1,10 +1,11 @@
 
 const list = document.querySelector('.main__list')
-let timerId
+
 const getGiphyApi = (searchValue) => {
 
+
     const apiKey = 'zllX3wka09igvHnzldvV7MkpFKM7hqPc';
-    const apiUrl = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${searchValue}`
+    const apiUrl = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${searchValue}&limit=27`
 
     list.innerHTML = ''
 
@@ -18,6 +19,7 @@ const getGiphyApi = (searchValue) => {
     }).then(data => {
         if (data && data.data){
             let arrData = data.data
+            console.log(arrData)
 
             arrData.forEach(item => {
 
@@ -25,7 +27,7 @@ const getGiphyApi = (searchValue) => {
                 li.classList.add('main__item')
                 let img = document.createElement('img')
                 img.classList.add('main__item-img')
-                const imageUrl = item.images.original.url
+                const imageUrl = item.images.downsized.url
 
                 img.src = imageUrl
 
@@ -42,6 +44,8 @@ const getGiphyApi = (searchValue) => {
 
 const searchInput = document.querySelector('.header__input')
 
+let timerId
+
 searchInput.addEventListener('input', () => {
     clearTimeout(timerId)
     const inputValue = searchInput.value.trim()
@@ -49,10 +53,9 @@ searchInput.addEventListener('input', () => {
     if (inputValue.length >= 3){
         timerId = setTimeout(() => {
             getGiphyApi(searchInput.value)
-        }, 1000)
+        }, 800)
     }
 })
-
 
 
 
