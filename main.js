@@ -1,6 +1,11 @@
 
 const list = document.querySelector('.main__list')
 
+const searchInput = document.querySelector('.header__input')
+
+let timerId
+
+
 const getGiphyApi = (searchValue) => {
 
 
@@ -19,7 +24,6 @@ const getGiphyApi = (searchValue) => {
     }).then(data => {
         if (data && data.data){
             let arrData = data.data
-            console.log(arrData)
 
             arrData.forEach(item => {
 
@@ -40,11 +44,6 @@ const getGiphyApi = (searchValue) => {
             console.error('Fetch error:', error);
         });
 }
-
-
-const searchInput = document.querySelector('.header__input')
-
-let timerId
 
 searchInput.addEventListener('input', () => {
     clearTimeout(timerId)
